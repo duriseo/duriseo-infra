@@ -1,0 +1,42 @@
+services:
+  nginx:
+    image: nginx:1.27.2-apline
+    container_name: nginx
+    volumes:
+      - ./config/nginx.conf:/etc/nginx/nginx.conf:ro
+      - nginx_logs:/var/log/nginx
+    ports:
+      - "80:80"
+    networks:
+      - internal
+      - public
+  backend:
+    image: ghcr.io/duriseo/duriseo-be:latest
+    container_name: duriseo-be
+    depends_on:
+      - nginx
+    environment:
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+    networks:
+      - internal
+  frontend:
+    image: ghcr.io/duriseo/duriseo-fe:latest
+    container_name: duriseo-fe
+    depends_on:
+      - backend
+    networks:
+      - internal
+volumes:
+  nginx_logs:
+networks:
+  internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+  public:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.19.0.0/16
