@@ -15,9 +15,6 @@ services:
     container_name: duriseo-be
     depends_on:
       - nginx
-    environment:
-      DB_USER: ${DB_USER}
-      DB_PASSWORD: ${DB_PASSWORD}
     networks:
       - internal
   frontend:
@@ -25,8 +22,6 @@ services:
     container_name: duriseo-fe
     depends_on:
       - backend
-    environment:
-      NEXT_PUBLIC_NCP_CLIENT_ID: ${NCP_CLIENT_ID}
     networks:
       - internal
 volumes:
