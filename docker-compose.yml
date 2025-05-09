@@ -25,6 +25,8 @@ services:
     container_name: duriseo-fe
     depends_on:
       - backend
+    environment:
+      NEXT_PUBLIC_NCP_CLIENT_ID: ${NCP_CLIENT_ID}
     networks:
       - internal
 volumes:

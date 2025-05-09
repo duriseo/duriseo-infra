@@ -3,6 +3,6 @@
 
 ## Running
 ```sh
-docker compose --env-file .\.env f .\docker-compose.yml --build -d
+docker compose --env-file ./.env -f ./docker-compose.yml up --build -d
 ```
 
